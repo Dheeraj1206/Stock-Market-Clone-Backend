@@ -1,23 +1,30 @@
-const { default: mongoose } = require('mongoose');
+const mongoose = require('mongoose');
 const app = require('./app');
 const dotenv = require('dotenv');
 
+// Load environment variables
 dotenv.config();
 
-const PORT = process.env.server_PORT || 3000;
+const PORT = process.env.SERVER_PORT || 5000;
+const MONGO_URI = process.env.MONGO_URI;
 
-mongoose
-	.connect(process.env.MONGO_URI, {
-		useNewUrlParser: true,
-		useUnifiedTopology: true,
-	})
-	.then(() => console.log('MongoDB connected'))
-	.catch((err) => console.error('MongoDB connection error:', err));
+if (!MONGO_URI) {
+  console.error('❌ MONGO_URI not defined in .env');
+  process.exit(1);
+}
 
-app
-	.listen(PORT, () => {
-		console.log(`Server running on http://localhost:${PORT}`);
-	})
-	.on('error', (err) => {
-		console.log('Server failed to start: ', err);
-	});
+// Connect to MongoDB
+mongoose.connect(MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+.then(() => {
+  console.log('✅ MongoDB connected');
+  
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running at http://localhost:${PORT}`);
+  });
+})
+.catch((err) => {
+  console.error('❌ MongoDB connection error:', err);
+});

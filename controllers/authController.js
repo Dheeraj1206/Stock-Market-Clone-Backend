@@ -10,7 +10,7 @@ if (!secretKey) {
 	console.error('JWT_SECRET is not defined in environment variables');
 }
 
-exports.registerUser = async (req, res) => {
+exports.registerUser = async (req, res) => {	
 	const { name, email, password, phone } = req.body;
 
 	if (!name || !email || !password || !phone) {
