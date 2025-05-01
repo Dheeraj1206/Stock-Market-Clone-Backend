@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const app = require('./app');
 const dotenv = require('dotenv');
 
-// Load environment variables
+
 dotenv.config();
 
 const PORT = process.env.SERVER_PORT || 5000;
@@ -13,7 +13,7 @@ if (!MONGO_URI) {
   process.exit(1);
 }
 
-// Connect to MongoDB
+
 mongoose.connect(MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,

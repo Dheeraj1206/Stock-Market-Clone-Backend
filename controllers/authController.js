@@ -10,7 +10,7 @@ if (!secretKey) {
 	console.error('JWT_SECRET is not defined in environment variables');
 }
 
-exports.registerUser = async (req, res) => {	
+exports.registerUser = async (req, res) => {
 	const { name, email, password, phone } = req.body;
 
 	if (!name || !email || !password || !phone) {
@@ -64,10 +64,7 @@ exports.loginUser = async (req, res) => {
 
 		console.log('Password valid, creating token...');
 
-		// Use the hard-coded secret value if environment variable is not available
-		const jwtSecret =
-			process.env.JWT_SECRET ||
-			'fe90468f0c9e60b686702d4583811ff5201c27e09d34035b2395c86e6e9513495653e10bc9f0e92f3ff7eeb3cd2d766cef35626d9b2791f232d1666b0a156a95';
+		const jwtSecret = process.env.JWT_SECRET;
 		console.log('JWT_SECRET available:', !!jwtSecret);
 
 		try {
