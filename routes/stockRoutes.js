@@ -5,6 +5,8 @@ const stockController = require('../controllers/stockController');
 router.get('/price/:symbol', stockController.getStockPrice);
 router.post('/prices', stockController.getMultipleStockPrices);
 router.get('/search', stockController.searchStocks);
+router.get('/sector', stockController.getStockSector);
+router.get('/sector/:name', stockController.getStockName);
 router.get('/profile/:symbol', stockController.getCompanyProfile);
 
 module.exports = router;
