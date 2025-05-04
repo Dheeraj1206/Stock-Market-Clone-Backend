@@ -1,17 +1,23 @@
-import mongoose, { Schema } from 'mongoose';
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const companyNameSchema = new Schema({
-  symbol: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  name: {
-    type: String,
-    required: true,
-  },
-}, { collection: 'market_details' }); // Explicitly specify the collection name
+// Define company schema for companies within sectors
+const CompanySchema = new Schema({
+	name: String,
+	symbol: String
+});
 
-const CompanyName = mongoose.model('CompanyName', companyNameSchema);
+// Define dynamic schema for sectors
+const MarketDetailsSchema = new Schema(
+	{
+		// Allow any field name (sector names) with array of company objects
+	},
+	{ 
+		collection: 'market_details',
+		strict: false // Allow any fields to be saved
+	}
+);
 
-export default CompanyName;
+const MarketDetails = mongoose.model('MarketDetails', MarketDetailsSchema);
+
+module.exports = MarketDetails;

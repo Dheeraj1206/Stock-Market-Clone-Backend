@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const authRoutes = require('./routes/authRoutes');
 const stockRoutes = require('./routes/stockRoutes');
+const portfolioRoutes = require('./routes/portfolioRoutes');
 
 dotenv.config();
 
@@ -14,7 +15,7 @@ const app = express();
 
 app.use(
 	cors({
-		origin: 'http://localhost:5173',
+		origin: '*', // Allow all origins for testing
 		credentials: true,
 	})
 );
@@ -24,6 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/auth', authRoutes);
 app.use('/api/stocks', stockRoutes);
+app.use('/api/portfolio', portfolioRoutes);
 
 app.use((req, res, next) => {
 	res.status(404).json({ error: 'Route not found' });
